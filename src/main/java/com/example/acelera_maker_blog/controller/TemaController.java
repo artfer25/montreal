@@ -32,6 +32,13 @@ public class TemaController {
         return temaService.salvar(tema);
     }
 
+    @PutMapping
+    public ResponseEntity<Tema> atualizar(@RequestBody Tema tema) {
+        return temaService.buscarPorId(tema.getId())
+                .map(registro -> ResponseEntity.ok(temaService.salvar(tema)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         temaService.deletar(id);

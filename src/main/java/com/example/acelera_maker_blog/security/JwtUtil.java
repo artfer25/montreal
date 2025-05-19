@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtUtil {
 
-    private final String jwtSecret = "segredoSuperSecretosegredoSuperSecreto"; // >= 32 chars
+    private final String jwtSecret = "segredoSuperSecretosegredoSuperSecreto"; 
     private final int jwtExpirationMs = 86400000;
 
     private Key getSigningKey() {

@@ -32,9 +32,26 @@ public class PostagemController {
         return postagemService.salvar(postagem);
     }
 
+    @PutMapping
+    public ResponseEntity<Postagem> atualizar(@RequestBody Postagem postagem) {
+        return postagemService.buscarPorId(postagem.getId())
+                .map(registroExistente -> ResponseEntity.ok(postagemService.salvar(postagem)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         postagemService.deletar(id);
         return ResponseEntity.ok().build();
+    }
+
+    // NOVO
+    @GetMapping("/tema/{descricao}")
+    public ResponseEntity<List<Postagem>> buscarPorTema(@PathVariable String descricao) {
+        List<Postagem> postagens = postagemService.buscarPorTema(descricao);
+        if (postagens.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(postagens);
     }
 }

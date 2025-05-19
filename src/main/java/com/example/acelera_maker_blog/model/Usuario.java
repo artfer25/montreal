@@ -28,7 +28,7 @@ public class Usuario {
 
     private String foto;
 
-    private String tipo; // "ADMIN" ou "USER"
+    private String tipo; 
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
     private List<Postagem> postagens;
